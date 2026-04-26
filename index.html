@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>XV Años · Delany Itzel</title>
+  <meta name="description" content="Invitación digital a los XV años de Delany Itzel Salazar Canizal · 16 de mayo de 2026">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --burgundy:    #7a0016; /* A slightly richer, more vibrant burgundy */
+      --burgundy-dk: #4a000a;
+      --burgundy-lt: #9e142f;
+      --gold:        #d4af37;
+      --gold-lt:     #f9df9f;
+      --gold-dk:     #aa8529;
+      --cream:       #fffdf8;
+      --cream-dk:    #f2ebd9;
+      --text-dark:   #2A0A0A;
+      
+      --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--burgundy-dk);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      /* Prevenir scroll durante la pantalla inicial */
+      overscroll-behavior-y: none;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    /* ─── FONDOS Y PARTICULAS GLOBALES ─────────────────────── */
+    .global-bg {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, var(--burgundy) 0%, var(--burgundy-dk) 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+      20%  { opacity: .8; }
+      80%  { opacity: .5; }
+      100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+
+    /* ─── ESCENA DEL SOBRE (PANTALLA INICIAL) ─────────────────── */
+    #envelope-scene {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+      background: inherit;
+    }
+
+    .scene-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 10vw, 4.5rem);
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 3rem;
+      text-align: center;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Envoltura del sobre */
+    .envelope-wrap {
+      position: relative;
+      width: min(340px, 85vw);
+      cursor: pointer;
+      filter: drop-shadow(0 25px 40px rgba(0,0,0,0.6));
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .envelope-wrap:hover { transform: scale(1.05) translateY(-5px); }
+    .envelope-wrap:active { transform: scale(0.98); transition: transform 0.1s; }
+
+    /* Cuerpo del sobre */
+    .env-body {
+      width: 100%;
+      aspect-ratio: 1.4 / 1;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dk) 100%);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(107,0,0,0.05);
+    }
+
+    /* Textura del papel */
+    .env-body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent 0px,
+        transparent 15px,
+        rgba(122, 0, 22, 0.04) 15px,
+        rgba(122, 0, 22, 0.04) 16px
+      );
+      z-index: 1;
+    }
+
+    /* Borde dorado interior */
+    .env-border {
+      position: absolute;
+      inset: 8px;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .env-mono {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      color: transparent;
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    /* Solapa (Flap) */
+    .env-flap {
+      width: 100%;
+      aspect-ratio: 1.4 / 0.8;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top center;
+      transform-style: preserve-3d;
+      transform: perspective(1000px) rotateX(0deg);
+      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 4;
+    }
+    
+    .env-flap-front {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dk) 100%);
+      clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      backface-visibility: hidden;
+    }
+    /* Sombra proyectada por la solapa */
+    .env-flap-shadow {
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+      background: rgba(0,0,0,0.1);
+      filter: blur(4px);
+      transform: translateY(4px);
+      z-index: -1;
+      backface-visibility: hidden;
+    }
+    
+    .env-flap-inner {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--cream-dk) 0%, var(--cream) 100%);
+      clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+      transform: rotateY(180deg);
+      backface-visibility: hidden;
+    }
+
+    /* Lados del sobre (triángulos laterales y el inferior) */
+    .env-side-left, .env-side-right, .env-side-bottom {
+      position: absolute;
+      background: var(--cream);
+      z-index: 3;
+    }
+    .env-side-left {
+      top: 0; left: 0; width: 50%; height: 100%;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      background: linear-gradient(to right, var(--cream) 0%, var(--cream-dk) 100%);
+    }
+    .env-side-right {
+      top: 0; right: 0; width: 50%; height: 100%;
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+      background: linear-gradient(to left, var(--cream) 0%, var(--cream-dk) 100%);
+    }
+    .env-side-bottom {
+      bottom: 0; left: 0; width: 100%; height: 60%;
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      background: linear-gradient(to top, var(--cream) 0%, #ebe2ce 100%);
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    }
+
+    /* Sello de lacre */
+    .seal {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at 30% 30%, #b30021 0%, #63000d 80%, #300006 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 
+        0 8px 15px rgba(0,0,0,0.4),
+        inset 0 2px 4px rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.5);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+    .seal::before {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border: 1px solid rgba(212, 175, 55, 0.4); /* Anillo dorado sutil */
+      border-radius: 50%;
+    }
+    .seal-letter {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: var(--gold-lt);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Carta asomándose */
+    .env-letter {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      width: 88%;
+      height: 90%;
+      background: #fff;
+      border-radius: 4px 4px 0 0;
+      padding: 20px;
+      text-align: center;
+      transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.5s;
+      z-index: 2; /* Por detrás de los lados */
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .env-letter::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px solid var(--gold);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .env-letter-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: var(--burgundy);
+      margin-top: 10px;
+    }
+    .env-letter-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      color: var(--gold-dk);
+      margin-top: 5px;
+      letter-spacing: 0.1em;
+    }
+
+    /* ESTADO ABIERTO DEL SOBRE */
+    .envelope-wrap.opening {
+      pointer-events: none;
+      transform: translateY(20px) scale(1.1);
+    }
+    .envelope-wrap.opening .env-flap {
+      transform: perspective(1000px) rotateX(-180deg);
+      z-index: 1; /* Pasa detrás de la carta al abrir */
+    }
+    .envelope-wrap.opening .seal {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+    .envelope-wrap.opening .env-letter {
+      transform: translateX(-50%) translateY(-80%);
+      opacity: 0;
+      transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.3s, opacity 0.5s ease 1s;
+    }
+
+    .tap-hint {
+      margin-top: 4rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--gold-lt);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: pulseOpacity 2s ease-in-out infinite;
+    }
+    @keyframes pulseOpacity {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+
+    /* ─── CONTENIDO PRINCIPAL (INVITACIÓN) ──────────────────── */
+    #main-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 100vh;
+      z-index: 20;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 1.5s ease 0.5s;
+      display: flex;
+      justify-content: center; /* Centrar para desktop */
+    }
+    #main-content.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Contenedor tipo tarjeta física para desktop */
+    .invitation-card {
+      width: 100%;
+      max-width: 500px;
+      background: var(--cream);
+      box-shadow: 0 0 50px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Video Header */
+    .video-section {
+      position: relative;
+      width: 100%;
+      background: #000;
+      /* Relación de aspecto asumida o ajuste flexible */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 3px solid var(--gold);
+    }
+    .video-section video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* Sombra superpuesta al video para darle elegancia */
+    .video-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.6) 100%);
+      pointer-events: none;
+    }
+
+    /* Área de Información */
+    .info-section {
+      padding: 0;
+      position: relative;
+      background: var(--cream);
+      background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(122, 0, 22, 0.05) 0%, transparent 40%);
+    }
+
+    .info-inner {
+      padding: 40px 30px 60px;
+    }
+
+    /* Encabezado */
+    .info-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .xv-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 2px solid var(--gold);
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--burgundy);
+      box-shadow: 0 5px 15px rgba(122,0,22,0.1);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .xv-badge::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border: 1px dashed rgba(212, 175, 55, 0.5);
+      border-radius: 50%;
+      animation: spinSlow 20s linear infinite;
+    }
+    @keyframes spinSlow { 100% { transform: rotate(360deg); } }
+
+    .info-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.8rem, 8vw, 3.5rem);
+      color: var(--burgundy);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .info-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--gold-dk);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* Divisores Dorados Modernos */
+    .gold-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 35px 0;
+    }
+    .gold-divider span.line {
+      height: 1px;
+      width: 60px;
+      background: var(--gold-gradient);
+    }
+    .gold-divider span.icon {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    /* Tarjetas de Detalle (Estilo Premium) */
+    .detail-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .detail-card.animate-up {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Adorno en las tarjetas */
+    .detail-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px;
+      background: var(--gold-gradient);
+      border-radius: 0 0 4px 4px;
+    }
+
+    .detail-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--burgundy);
+    }
+    .detail-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--gold-dk);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .detail-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      color: var(--text-dark);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .detail-text strong {
+      color: var(--burgundy);
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* Botones de acción */
+    .btn-map {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 24px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      border-radius: 25px;
+      color: var(--burgundy);
+      text-decoration: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .btn-map:hover {
+      background: var(--burgundy);
+      color: var(--cream);
+      border-color: var(--burgundy);
+    }
+
+    /* Mensaje final */
+    .closing-msg {
+      text-align: center;
+      margin: 50px 0 30px;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.8s ease;
+    }
+    .closing-msg.animate-up {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .closing-msg p {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--burgundy);
+      line-height: 1.3;
+    }
+    .closing-msg small {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--gold-dk);
+      margin-top: 15px;
+      letter-spacing: 0.1em;
+    }
+
+    /* Pie de página */
+    .inv-footer {
+      background: var(--burgundy-dk);
+      text-align: center;
+      padding: 25px 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--gold-lt);
+      letter-spacing: 0.2em;
+      border-top: 2px solid var(--gold);
+    }
+
+    /* ─── BOTÓN DE MÚSICA ─────────────────────────────── */
+    #music-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 100;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: rgba(122, 0, 22, 0.85);
+      backdrop-filter: blur(5px);
+      border: 1.5px solid var(--gold);
+      color: var(--gold-lt);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
+    }
+    #music-btn:hover { 
+      transform: scale(1.1);
+      background: var(--burgundy);
+    }
+    #music-btn.active { display: flex; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    
+    @keyframes popIn {
+      from { transform: scale(0) rotate(-90deg); opacity: 0; }
+      to { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    /* Animación del ícono cuando suena la música */
+    .music-playing {
+      animation: beat 2s infinite;
+    }
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    /* Decoraciones florales estéticas */
+    .floral-svg {
+      display: block;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 250px;
+      fill: none;
+      stroke: var(--burgundy);
+      stroke-width: 1;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body class="locked">
+
+  <div class="global-bg"></div>
+  <div id="particles"></div>
+
+  <!-- ESCENA INICIAL: EL SOBRE -->
+  <div id="envelope-scene">
+    <h1 class="scene-title">Delany Itzel</h1>
+
+    <div class="envelope-wrap" id="envelope" onclick="openEnvelope()" aria-label="Abrir invitación">
+      <!-- Solapa -->
+      <div class="env-flap">
+        <div class="env-flap-shadow"></div>
+        <div class="env-flap-front"></div>
+        <div class="env-flap-inner"></div>
+        <!-- Lacre -->
+        <div class="seal">
+          <span class="seal-letter">D</span>
+        </div>
+      </div>
+
+      <!-- Cuerpo -->
+      <div class="env-body">
+        <div class="env-border"></div>
+        <div class="env-side-bottom"></div>
+        <div class="env-side-left"></div>
+        <div class="env-side-right"></div>
+        <div class="env-mono">XV</div>
+
+        <!-- Carta interior -->
+        <div class="env-letter">
+          <div class="env-letter-name">¡Estás invitado!</div>
+          <div class="env-letter-sub">XVI DE MAYO · 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="tap-hint">✦ Toca el sobre para abrir ✦</p>
+  </div>
+
+
+  <!-- CONTENIDO DE LA INVITACIÓN -->
+  <div id="main-content">
+    <div class="invitation-card">
+      
+      <!-- Video -->
+      <div class="video-section">
+        <video id="inv-video" playsinline preload="auto">
+          <source src="Invitación XV años (1).mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Información -->
+      <div class="info-section">
+        <div class="info-inner">
+
+          <!-- Floral Top -->
+          <svg class="floral-svg" viewBox="0 0 200 50" style="margin-bottom: 25px;">
+            <path d="M10,25 Q50,5 100,25 T190,25" />
+            <path d="M80,25 Q100,5 120,25" opacity="0.5"/>
+            <circle cx="100" cy="15" r="2" fill="var(--burgundy)" opacity="0.8"/>
+            <circle cx="85" cy="20" r="1.5" fill="var(--gold-dk)" stroke="none" opacity="0.8"/>
+            <circle cx="115" cy="20" r="1.5" fill="var(--gold-dk)" stroke="none" opacity="0.8"/>
+          </svg>
+
+          <!-- Header -->
+          <div class="info-header">
+            <div class="xv-badge">XV</div>
+            <h2 class="info-name">Delany Itzel<br>Salazar Canizal</h2>
+            <p class="info-subtitle">Celebra sus Quince Años</p>
+          </div>
+
+          <div class="gold-divider">
+            <span class="line"></span>
+            <span class="icon">✦</span>
+            <span class="line"></span>
+          </div>
+
+          <!-- Cards -->
+          <div class="detail-card">
+            <div class="detail-icon">📅</div>
+            <div class="detail-label">Cuándo</div>
+            <div class="detail-text">
+              Sábado
+              <strong>16 de mayo de 2026</strong>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">⛪</div>
+            <div class="detail-label">Ceremonia Religiosa</div>
+            <div class="detail-text">
+              Parroquia de San Pedro y San Pablo
+              <strong>1:00 PM</strong>
+            </div>
+            <!-- Si tienes la ubicación en maps, se puede añadir el href aquí -->
+            <!-- <a href="#" class="btn-map" target="_blank">Ver Mapa</a> -->
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">🥂</div>
+            <div class="detail-label">Recepción</div>
+            <div class="detail-text">
+              Salón Imperial
+              <br>
+              <span style="font-size: 0.9em; opacity: 0.8;">Iturbide 152, Zinapécuaro, Mich.</span>
+              <strong>3:00 PM</strong>
+            </div>
+          </div>
+
+          <div class="gold-divider">
+            <span class="line"></span>
+            <span class="icon">🌹</span>
+            <span class="line"></span>
+          </div>
+
+          <!-- Despedida -->
+          <div class="closing-msg">
+            <p>¡Te esperamos para celebrar<br>este día tan especial!</p>
+            <small>✨ Con amor, Familia Salazar Canizal ✨</small>
+          </div>
+
+          <!-- Floral Bottom -->
+          <svg class="floral-svg" viewBox="0 0 200 50" style="margin-top: 25px; transform: rotate(180deg);">
+            <path d="M10,25 Q50,5 100,25 T190,25" />
+            <path d="M80,25 Q100,5 120,25" opacity="0.5"/>
+            <circle cx="100" cy="15" r="2" fill="var(--burgundy)" opacity="0.8"/>
+            <circle cx="85" cy="20" r="1.5" fill="var(--gold-dk)" stroke="none" opacity="0.8"/>
+            <circle cx="115" cy="20" r="1.5" fill="var(--gold-dk)" stroke="none" opacity="0.8"/>
+          </svg>
+
+        </div>
+      </div>
+
+      <footer class="inv-footer">
+        XVI · MAYO · MMXXVI &nbsp;|&nbsp; ZINAPÉCUARO, MICH.
+      </footer>
+      
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="musica" loop preload="auto">
+    <source src="vive-napoleon.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Control de música -->
+  <button id="music-btn" title="Activar/Desactivar Música" onclick="toggleMusic()">
+    <span class="music-icon music-playing">♪</span>
+  </button>
+
+
+  <script>
+    /* ─── PARTICULAS ─────────────────────────────────── */
+    (function initParticles() {
+      const container = document.getElementById('particles');
+      const colors = ['#d4af37', '#f9df9f', '#ffcccc', '#ffffff'];
+      // Reducimos un poco la cantidad en móviles por rendimiento
+      const particleCount = window.innerWidth < 768 ? 15 : 25;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        p.style.cssText = `
+          left: ${Math.random() * 100}%;
+          width: ${size}px; height: ${size}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          animation-duration: ${Math.random() * 12 + 10}s;
+          animation-delay: ${Math.random() * 5}s;
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    /* ─── LÓGICA DE APERTURA DEL SOBRE ──────────────── */
+    let opened = false;
+    let musicPlaying = false;
+    const musica = document.getElementById('musica');
+    const video = document.getElementById('inv-video');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = musicBtn.querySelector('.music-icon');
+
+    function openEnvelope() {
+      if (opened) return;
+      opened = true;
+
+      const envelope = document.getElementById('envelope');
+      const scene = document.getElementById('envelope-scene');
+      const content = document.getElementById('main-content');
+      
+      // Anima el sobre
+      envelope.classList.add('opening');
+
+      // Esperar a que la animación de la carta termine (aprox 1.4s)
+      setTimeout(() => {
+        // Ocultar escena inicial
+        scene.style.opacity = '0';
+        scene.style.pointerEvents = 'none';
+        
+        // Desbloquear scroll
+        document.body.classList.remove('locked');
+
+        // Mostrar contenido principal
+        content.classList.add('visible');
+
+        // Iniciar media
+        iniciarMedia();
+
+        // Eliminar escena inicial del DOM para liberar memoria después de que termine la transición
+        setTimeout(() => scene.remove(), 1000);
+
+      }, 1500);
+    }
+
+    function iniciarMedia() {
+      // Reproducir audio y video
+      // El video primero, si falla no hay problema
+      video.muted = false; // Intentar con sonido
+      const playVideo = video.play();
+      if (playVideo !== undefined) {
+        playVideo.catch(() => {
+          // Si el navegador bloquea el auto-play con sonido, silenciamos e intentamos de nuevo
+          video.muted = true;
+          video.play();
+        });
+      }
+
+      // Reproducir música
+      musica.volume = 0.4; // Volumen agradable
+      const playAudio = musica.play();
+      if (playAudio !== undefined) {
+        playAudio.then(() => {
+          musicPlaying = true;
+          actualizarIconoMusica();
+        }).catch(err => {
+          console.warn("Autoplay bloqueado para el audio", err);
+          musicPlaying = false;
+          actualizarIconoMusica();
+        });
+      }
+      
+      // Mostrar botón de música
+      musicBtn.classList.add('active');
+    }
+
+    /* ─── CONTROL DE MÚSICA ─────────────────────────── */
+    function toggleMusic() {
+      if (musicPlaying) {
+        musica.pause();
+        musicPlaying = false;
+      } else {
+        musica.play();
+        musicPlaying = true;
+      }
+      actualizarIconoMusica();
+    }
+
+    function actualizarIconoMusica() {
+      if (musicPlaying) {
+        musicIcon.textContent = '♪';
+        musicIcon.classList.add('music-playing');
+        musicBtn.style.background = 'rgba(122, 0, 22, 0.85)';
+      } else {
+        musicIcon.textContent = '♩';
+        musicIcon.classList.remove('music-playing');
+        musicBtn.style.background = 'rgba(0, 0, 0, 0.6)';
+      }
+    }
+
+    // Subir volumen cuando el video termine
+    video.addEventListener('ended', () => {
+      if(musicPlaying) {
+        // Transición suave de volumen
+        let vol = musica.volume;
+        const interval = setInterval(() => {
+          if(vol < 0.8) {
+            vol += 0.05;
+            musica.volume = vol;
+          } else {
+            clearInterval(interval);
+          }
+        }, 200);
+      }
+    });
+
+    /* ─── ANIMACIONES AL HACER SCROLL (INTERSECTION OBSERVER) ─── */
+    document.addEventListener("DOMContentLoaded", () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-up');
+            observer.unobserve(entry.target); // Solo animar una vez
+          }
+        });
+      }, observerOptions);
+
+      // Elementos a animar
+      const animatedElements = document.querySelectorAll('.detail-card, .closing-msg, .info-header');
+      animatedElements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
