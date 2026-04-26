@@ -480,14 +480,14 @@
 
     /* Tarjetas de Detalle (Estilo Premium) */
     .detail-card {
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 16px;
+      padding: 35px 25px;
+      margin-bottom: 25px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
       position: relative;
       overflow: hidden;
       transform: translateY(30px);
@@ -506,39 +506,93 @@
       position: absolute;
       top: 0; left: 50%;
       transform: translateX(-50%);
-      width: 40px;
-      height: 3px;
+      width: 50px;
+      height: 4px;
       background: var(--gold-gradient);
       border-radius: 0 0 4px 4px;
     }
 
     .detail-icon {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+      font-size: 2.2rem;
+      margin-bottom: 15px;
       color: var(--burgundy);
     }
     .detail-label {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.2em;
+      font-size: 0.95rem;
+      letter-spacing: 0.25em;
       color: var(--gold-dk);
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      display: inline-block;
+      font-weight: 600;
     }
-    .detail-text {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
-      color: var(--text-dark);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-    .detail-text strong {
+    .detail-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
       color: var(--burgundy);
       font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .detail-place {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .detail-address {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    /* Hint para hacer scroll */
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--gold-lt);
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s ease;
+      cursor: pointer;
+    }
+    .scroll-hint.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .scroll-hint span {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      display: block;
-      margin-top: 4px;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+    .arrow-down {
+      width: 16px;
+      height: 16px;
+      border-right: 2px solid var(--gold-lt);
+      border-bottom: 2px solid var(--gold-lt);
+      transform: rotate(45deg);
+      animation: bounceDown 2s infinite;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+    }
+    @keyframes bounceDown {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(45deg); }
+      40% { transform: translateY(-10px) rotate(45deg); }
+      60% { transform: translateY(-5px) rotate(45deg); }
     }
 
     /* Botones de acción */
@@ -707,6 +761,10 @@
         <video id="inv-video" playsinline preload="auto">
           <source src="Invitación XV años (1).mp4" type="video/mp4">
         </video>
+        <div id="scroll-hint" class="scroll-hint" onclick="scrollToInfo()">
+          <span>Ver Detalles</span>
+          <div class="arrow-down"></div>
+        </div>
       </div>
 
       <!-- Información -->
@@ -739,31 +797,44 @@
           <div class="detail-card">
             <div class="detail-icon">📅</div>
             <div class="detail-label">Cuándo</div>
-            <div class="detail-text">
-              Sábado
-              <strong>16 de mayo de 2026</strong>
-            </div>
+            <div class="detail-time">Sábado 16</div>
+            <div class="detail-place">de mayo de 2026</div>
           </div>
 
           <div class="detail-card">
             <div class="detail-icon">⛪</div>
             <div class="detail-label">Ceremonia Religiosa</div>
-            <div class="detail-text">
-              Parroquia de San Pedro y San Pablo
-              <strong>1:00 PM</strong>
-            </div>
-            <!-- Si tienes la ubicación en maps, se puede añadir el href aquí -->
-            <!-- <a href="#" class="btn-map" target="_blank">Ver Mapa</a> -->
+            <div class="detail-time">1:00 PM</div>
+            <div class="detail-place">Parroquia de San Pedro y San Pablo</div>
+            <!-- Enlace al mapa de la Parroquia -->
+            <a href="https://maps.app.goo.gl/KB3DZJySNxochBMv8" class="btn-map" target="_blank">Ver Mapa</a>
           </div>
 
           <div class="detail-card">
             <div class="detail-icon">🥂</div>
             <div class="detail-label">Recepción</div>
-            <div class="detail-text">
-              Salón Imperial
+            <div class="detail-time">3:00 PM</div>
+            <div class="detail-place">Salón Imperial</div>
+            <div class="detail-address">Iturbide 152, Zinapécuaro, Mich.</div>
+            <!-- Enlace al mapa del Salón -->
+            <a href="https://maps.app.goo.gl/k41WLMPuWTc7XWRv7?g_st=awb" class="btn-map" target="_blank">Ver Mapa</a>
+          </div>
+
+          <div class="gold-divider">
+            <span class="line"></span>
+            <span class="icon">✨</span>
+            <span class="line"></span>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">🕯️</div>
+            <div class="detail-label">Padrinos de Velación</div>
+            <div class="detail-place" style="font-size: 1.4rem; font-family: 'Cormorant Garamond', serif; color: var(--burgundy-dk); font-weight: 600; line-height: 1.3;">
+              Maribel Hernandez
               <br>
-              <span style="font-size: 0.9em; opacity: 0.8;">Iturbide 152, Zinapécuaro, Mich.</span>
-              <strong>3:00 PM</strong>
+              <span style="font-size: 1.2rem; color: var(--gold-dk); font-family: 'Great Vibes', cursive;">&amp;</span>
+              <br>
+              Luis Soto
             </div>
           </div>
 
@@ -927,8 +998,11 @@
       }
     }
 
-    // Subir volumen cuando el video termine
+    // Subir volumen y mostrar flecha cuando el video termine
     video.addEventListener('ended', () => {
+      // Mostrar el indicador para hacer scroll
+      document.getElementById('scroll-hint').classList.add('show');
+
       if(musicPlaying) {
         // Transición suave de volumen
         let vol = musica.volume;
@@ -942,6 +1016,12 @@
         }, 200);
       }
     });
+
+    // Función para hacer scroll hacia la información
+    function scrollToInfo() {
+      const infoSection = document.querySelector('.info-section');
+      infoSection.scrollIntoView({ behavior: 'smooth' });
+    }
 
     /* ─── ANIMACIONES AL HACER SCROLL (INTERSECTION OBSERVER) ─── */
     document.addEventListener("DOMContentLoaded", () => {
